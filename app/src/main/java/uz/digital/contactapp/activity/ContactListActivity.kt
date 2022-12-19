@@ -1,7 +1,9 @@
 package uz.digital.contactapp.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import uz.digital.contactapp.R
 import uz.digital.contactapp.adapter.ContactAdapter
@@ -23,5 +25,12 @@ class ContactListActivity : AppCompatActivity() {
             adapter = contactAdapter
         }
         contactAdapter.submitList(contactDatabase.getAllContactList())
+
+        contactAdapter.onClick = {
+            val bundle = bundleOf("contact" to it)
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtras(bundle)
+            startActivity(intent)
+        }
     }
 }

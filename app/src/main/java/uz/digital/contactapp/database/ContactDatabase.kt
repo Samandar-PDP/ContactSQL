@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import uz.digital.contactapp.model.Contact
+import uz.digital.contactapp.util.Constants
 import uz.digital.contactapp.util.Constants.DB_NAME
 import uz.digital.contactapp.util.Constants.ID
 import uz.digital.contactapp.util.Constants.NAME
@@ -46,5 +47,26 @@ class ContactDatabase(context: Context) : SQLiteOpenHelper(context, DB_NAME, nul
         }
         cursor.close()
         return contactList
+    }
+
+    override fun updateContact(contact: Contact) {
+        val database = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(ID, contact.id)
+        contentValues.put(NAME, contact.name)
+        contentValues.put(NUMBER, contact.number)
+        database.update(TABLE_NAME, contentValues, "$ID = ?", arrayOf(contact.id.toString()))
+        database.close()
+    }
+
+    override fun deleteContact(id: Int) {
+        val database = this.writableDatabase
+        database.delete(TABLE_NAME, "$ID = ?", arrayOf(id.toString()))
+    }
+
+    override fun deleteAllContacts() {
+        val database = this.readableDatabase
+        database.delete(TABLE_NAME, null, null)
+        database.close()
     }
 }

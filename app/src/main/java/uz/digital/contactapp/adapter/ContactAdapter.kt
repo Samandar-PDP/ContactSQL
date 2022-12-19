@@ -9,6 +9,7 @@ import uz.digital.contactapp.databinding.ContactLayoutBinding
 import uz.digital.contactapp.model.Contact
 
 class ContactAdapter: ListAdapter<Contact, ContactAdapter.ContactViewHolder>(DiffCallBack()) {
+    lateinit var onClick: (Contact) -> Unit
     private class DiffCallBack: DiffUtil.ItemCallback<Contact>() {
         override fun areItemsTheSame(oldItem: Contact, newItem: Contact): Boolean {
             return oldItem.id == newItem.id
@@ -37,6 +38,10 @@ class ContactAdapter: ListAdapter<Contact, ContactAdapter.ContactViewHolder>(Dif
         fun bind(contact: Contact) {
             binding.number.text = contact.number
             binding.name.text = contact.name
+
+            itemView.setOnClickListener {
+                onClick(contact)
+            }
         }
     }
 }

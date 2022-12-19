@@ -13,17 +13,25 @@
         android:theme="@style/Theme.ContactApp"
         tools:targetApi="31">
         <activity
-            android:name=".activity.ContactListActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".activity.DetailActivity"
+            android:parentActivityName=".activity.ContactListActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
+            android:name=".activity.ContactListActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activity.AddContactActivity"
-            android:parentActivityName=".MainActivity"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
